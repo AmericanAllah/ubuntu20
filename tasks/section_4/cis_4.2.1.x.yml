@@ -51,31 +51,32 @@
                 - "{{ ubtu20cis_4_2_1_3_rsyslog_config.stdout_lines }}"
         when: not ubtu20cis_rsyslog_ansible_managed
 
-      - name: "MANUAL | 4.2.1.3 | PATCH | Ensure logging is configured | Automated rsyslog configuration"
-        lineinfile:
-            path: "{{ ubtu20cis_4_2_1_3_rsyslog_config_path.stdout }}"
-            regexp: "{{ item.regexp }}"
-            line: "{{ item.line }}"
-            insertafter: "{{ item.insertafter }}"
-        with_items:
-            - { regexp: '^\*.emerg', line: '*.emerg                         :omusrmsg:*', insertafter: '^# Emergencies are sent to everybody logged in' }
-            - { regexp: '^auth,authpriv.\*', line: 'auth,authpriv.*                  /var/log/auth.log', insertafter: '^# First some standard log files.  Log by facility' }
-            - { regexp: '^mail.\*|^#mail.\*', line: 'mail.*                          -/var/log/mail', insertafter: '^# First some standard log files' }
-            - { regexp: '^mail.info|^#mail.info', line: 'mail.info                      -/var/log/mail.info', insertafter: '^# Logging for the mail system' }
-            - { regexp: '^mail.warn|^#mail.warn', line: 'mail.warn                      -/var/log/mail.warn', insertafter: '^# Logging for the mail system.' }
-            - { regexp: '^mail.err|^#mail.err', line: 'mail.err                        /var/log/mail.err', insertafter: '^# Logging for the mail system.' }
-            - { regexp: '^news.crit|^#news.crit', line: 'news.crit                       -/var/log/news/news.crit', insertafter: '^# First some standard log files'}
-            - { regexp: '^news.err|^#news.err', line: 'news.err                        -/var/log/news/news.err', insertafter: '^# First some standard log files' }
-            - { regexp: '^news.notice|^#news.notice', line: 'news.notice                     -/var/log/news/news.notice', insertafter: '^# First some standard log files' }
-            - { regexp: '^\*.=warning;\*.=err|^#\*.=warning;\*.=err', line: '*.=warning;*.=err               -/var/log/warn', insertafter: '^# First some standard log files' }
-            - { regexp: '^\*.crit|^#\*.crit', line: '*.crit                           /var/log/warn', insertafter: '^# First some standard log files' }
-            - { regexp: '^\*.\*;mail.none;news.none|^#\*.\*;mail.none;news.none', line: '*.*;mail.none;news.none         -/var/log/messages', insertafter: '^# First some standard log files' }
-            - { regexp: '^local0,local1.\*|^#local0,local1.\*', line: 'local0,local1.*                 -/var/log/localmessages', insertafter: '^# First some standard log files' }
-            - { regexp: '^local2,local3.\*|^#local2,local3.\*', line: 'local2,local3.*                 -/var/log/localmessages', insertafter: '^# First some standard log files' }
-            - { regexp: '^local4,local5.\*|^#local4,local5.\*', line: 'local4,local5.*                 -/var/log/localmessages', insertafter: '^# First some standard log files' }
-            - { regexp: '^local6,local7.\*|^#local6,local7.\*', line: 'local6,local7.*                 -/var/log/localmessages', insertafter: '^# First some standard log files' }
-        notify: restart rsyslog
-        when: ubtu20cis_rsyslog_ansible_managed
+#       - name: "MANUAL | 4.2.1.3 | PATCH | Ensure logging is configured | Automated rsyslog configuration"
+#         lineinfile:
+#             path: "{{ ubtu20cis_4_2_1_3_rsyslog_config_path.stdout }}"
+#             regexp: "{{ item.regexp }}"
+#             line: "{{ item.line }}"
+#             insertafter: "{{ item.insertafter }}"
+#         with_items:
+#             - { regexp: '^\*.emerg', line: '*.emerg                         :omusrmsg:*', insertafter: '^# Emergencies are sent to everybody logged in' }
+#             - { regexp: '^auth,authpriv.\*', line: 'auth,authpriv.*                  /var/log/auth.log', insertafter: '^# First some standard log files.  Log by facility' }
+#             - { regexp: '^mail.\*|^#mail.\*', line: 'mail.*                          -/var/log/mail', insertafter: '^# First some standard log files' }
+#             - { regexp: '^mail.info|^#mail.info', line: 'mail.info                      -/var/log/mail.info', insertafter: '^# Logging for the mail system' }
+#             - { regexp: '^mail.warn|^#mail.warn', line: 'mail.warn                      -/var/log/mail.warn', insertafter: '^# Logging for the mail system.' }
+#             - { regexp: '^mail.err|^#mail.err', line: 'mail.err                        /var/log/mail.err', insertafter: '^# Logging for the mail system.' }
+#             - { regexp: '^news.crit|^#news.crit', line: 'news.crit                       -/var/log/news/news.crit', insertafter: '^# First some standard log files'}
+#             - { regexp: '^news.err|^#news.err', line: 'news.err                        -/var/log/news/news.err', insertafter: '^# First some standard log files' }
+#             - { regexp: '^news.notice|^#news.notice', line: 'news.notice                     -/var/log/news/news.notice', insertafter: '^# First some standard log files' }
+#             - { regexp: '^\*.=warning;\*.=err|^#\*.=warning;\*.=err', line: '*.=warning;*.=err               -/var/log/warn', insertafter: '^# First some standard log files' }
+#             - { regexp: '^\*.crit|^#\*.crit', line: '*.crit                           /var/log/warn', insertafter: '^# First some standard log files' }
+#             - { regexp: '^\*.\*;mail.none;news.none|^#\*.\*;mail.none;news.none', line: '*.*;mail.none;news.none         -/var/log/messages', insertafter: '^# First some standard log files' }
+#             - { regexp: '^local0,local1.\*|^#local0,local1.\*', line: 'local0,local1.*                 -/var/log/localmessages', insertafter: '^# First some standard log files' }
+#             - { regexp: '^local2,local3.\*|^#local2,local3.\*', line: 'local2,local3.*                 -/var/log/localmessages', insertafter: '^# First some standard log files' }
+#             - { regexp: '^local4,local5.\*|^#local4,local5.\*', line: 'local4,local5.*                 -/var/log/localmessages', insertafter: '^# First some standard log files' }
+#             - { regexp: '^local6,local7.\*|^#local6,local7.\*', line: 'local6,local7.*                 -/var/log/localmessages', insertafter: '^# First some standard log files' }
+#         notify: restart rsyslog
+#         when: ubtu20cis_rsyslog_ansible_managed
+
   when:
       - ubtu20cis_rule_4_2_1_3
   tags:

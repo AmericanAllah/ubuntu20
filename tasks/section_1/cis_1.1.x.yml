@@ -119,29 +119,29 @@
       - rule_1.1.1.5
       - hfsplus
 
-- name: "MANUAL | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled"
-  block:
-      - name: "MANUAL | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled | Edit modprobe config"
-        lineinfile:
-            dest: /etc/modprobe.d/squashfs.conf
-            regexp: "^(#)?install squashfs(\\s|$)"
-            line: install squashfs /bin/true
-            create: yes
-
-      - name: "MANUAL | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled | Disable squashfs"
-        modprobe:
-            name: squashfs
-            state: absent
-        when: ansible_connection != 'docker'
-  when:
-      - ubtu20cis_rule_1_1_1_6
-  tags:
-      - level2-server
-      - level2-workstation
-      - manual
-      - patch
-      - rule_1.1.1.6
-      - squashfs
+# - name: "MANUAL | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled"
+#   block:
+#       - name: "MANUAL | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled | Edit modprobe config"
+#         lineinfile:
+#             dest: /etc/modprobe.d/squashfs.conf
+#             regexp: "^(#)?install squashfs(\\s|$)"
+#             line: install squashfs /bin/true
+#             create: yes
+# 
+#       - name: "MANUAL | 1.1.1.6 | PATCH | Ensure mounting of squashfs filesystems is disabled | Disable squashfs"
+#         modprobe:
+#             name: squashfs
+#             state: absent
+#         when: ansible_connection != 'docker'
+#   when:
+#       - ubtu20cis_rule_1_1_1_6
+#   tags:
+#       - level2-server
+#       - level2-workstation
+#       - manual
+#       - patch
+#       - rule_1.1.1.6
+#       - squashfs
 
 - name: "AUTOMATED | 1.1.1.7 | PATCH | Ensure mounting of udf filesystems is disabled"
   block:
